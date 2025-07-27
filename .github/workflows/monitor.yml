@@ -22,53 +22,8 @@ permissions:
   contents: write
 
 jobs:
-  uptime-check:
+  monitoring:
     runs-on: ubuntu-latest
-    if: github.event.schedule == '*/30 * * * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.check_type == 'uptime' || github.event.inputs.check_type == 'both')
-    
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run uptime checks
-      id: uptime
-      run: |
-        npm run uptime
-        echo "uptime_success=true" >> $GITHUB_OUTPUT
-      continue-on-error: true
-
-    - name: Send alerts if uptime failed
-      if: steps.uptime.outcome == 'failure'
-      run: npm run alerts
-      env:
-        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-
-    - name: Commit and push results
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add data/uptime/
-        if ! git diff --staged --quiet; then
-          git commit -m "📊 Uptime check results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          git push
-        else
-          echo "No changes to commit"
-        fi
-
-  lighthouse-check:
-    runs-on: ubuntu-latest
-    if: github.event.schedule == '0 */6 * * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.check_type == 'lighthouse' || github.event.inputs.check_type == 'both')
     
     steps:
     - name: Checkout repository
@@ -88,15 +43,24 @@ jobs:
     - name: Install Lighthouse CI
       run: npm install -g @lhci/cli
 
+    - name: Run uptime checks
+      id: uptime
+      if: github.event.schedule == '*/30 * * * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.check_type == 'uptime' || github.event.inputs.check_type == 'both')
+      run: |
+        npm run uptime
+        echo "uptime_success=true" >> $GITHUB_OUTPUT
+      continue-on-error: true
+
     - name: Run Lighthouse audits
       id: lighthouse
+      if: github.event.schedule == '0 */6 * * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.check_type == 'lighthouse' || github.event.inputs.check_type == 'both')
       run: |
         npm run lighthouse
         echo "lighthouse_success=true" >> $GITHUB_OUTPUT
       continue-on-error: true
 
-    - name: Send alerts if performance failed
-      if: steps.lighthouse.outcome == 'failure'
+    - name: Send alerts if checks failed
+      if: steps.uptime.outcome == 'failure' || steps.lighthouse.outcome == 'failure'
       run: npm run alerts
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -105,9 +69,17 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add data/perf/
+        git add data/
         if ! git diff --staged --quiet; then
-          git commit -m "🚀 Lighthouse audit results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          if [[ "${{ steps.uptime.outcome }}" == "success" && "${{ steps.lighthouse.outcome }}" == "success" ]]; then
+            git commit -m "📊 Monitoring results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          elif [[ "${{ steps.uptime.outcome }}" == "success" ]]; then
+            git commit -m "📊 Uptime check results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          elif [[ "${{ steps.lighthouse.outcome }}" == "success" ]]; then
+            git commit -m "🚀 Lighthouse audit results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          else
+            git commit -m "📊 Monitoring data update - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          fi
           git push
         else
           echo "No changes to commit"
