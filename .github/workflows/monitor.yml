@@ -18,6 +18,9 @@ on:
         - lighthouse
         - both
 
+permissions:
+  contents: write
+
 jobs:
   uptime-check:
     runs-on: ubuntu-latest
@@ -56,8 +59,12 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add data/uptime/
-        git diff --staged --quiet || git commit -m "📊 Uptime check results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-        git push
+        if ! git diff --staged --quiet; then
+          git commit -m "📊 Uptime check results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          git push
+        else
+          echo "No changes to commit"
+        fi
 
   lighthouse-check:
     runs-on: ubuntu-latest
@@ -99,5 +106,9 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add data/perf/
-        git diff --staged --quiet || git commit -m "🚀 Lighthouse audit results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-        git push
+        if ! git diff --staged --quiet; then
+          git commit -m "🚀 Lighthouse audit results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          git push
+        else
+          echo "No changes to commit"
+        fi
