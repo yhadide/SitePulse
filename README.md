@@ -1,2 +1,213 @@
-# SitePulse
+# SitePulse 🚀
+
+**Free, open-source monitoring stack for WordPress & Shopify sites**
+
+Monitor uptime, performance, and get alerts - all running on GitHub's free tier with zero paid services.
+
+## 🎯 Features
+
+- **Uptime Monitoring**: HTTP status checks every 30 minutes
+- **Performance Audits**: Lighthouse CI every 6 hours (LCP, TBT, CLS, Performance Score)
+- **Real-time Dashboard**: React dashboard hosted on GitHub Pages
+- **Smart Alerts**: Discord webhooks when thresholds are violated
+- **Zero Cost**: Runs entirely on GitHub Actions + GitHub Pages free tiers
+- **Version Controlled**: All metrics stored as JSON in your repo
+
+## 🏗️ Architecture
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   GitHub Actions│    │   Data Storage   │    │  React Dashboard│
+│                 │    │                  │    │                 │
+│ ┌─────────────┐ │    │ /data/uptime/    │    │ Chart.js graphs │
+│ │Uptime Check │ ├────┤ /data/perf/      ├────┤ Site status     │
+│ │Every 30min  │ │    │ JSON files       │    │ Performance     │
+│ └─────────────┘ │    │                  │    │ trends          │
+│                 │    │                  │    │                 │
+│ ┌─────────────┐ │    │                  │    │ GitHub Pages    │
+│ │Lighthouse   │ │    │                  │    │ Static hosting  │
+│ │Every 6hrs   │ │    │                  │    │                 │
+│ └─────────────┘ │    │                  │    │                 │
+│                 │    │                  │    │                 │
+│ ┌─────────────┐ │    │                  │    │                 │
+│ │Discord      │ │    │                  │    │                 │
+│ │Alerts       │ │    │                  │    │                 │
+│ └─────────────┘ │    │                  │    │                 │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+```
+
+## 🚀 Quick Start
+
+### 1. Fork & Clone
+```bash
+git clone https://github.com/yourusername/sitePulse.git
+cd sitePulse
+```
+
+### 2. Configure Your Sites
+Edit `sites.yaml`:
+```yaml
+sites:
+  - name: my-wordpress-site
+    type: wordpress
+    url: https://yoursite.com
+    perf_budget:
+      lcp_ms: 2500
+      tbt_ms: 300
+      perf_score: 80
+      uptime_threshold: 5000
+```
+
+### 3. Set Up Discord Alerts
+1. Create a Discord server
+2. Go to Server Settings → Integrations → Webhooks
+3. Create New Webhook, copy the URL
+4. In your GitHub repo: Settings → Secrets → New repository secret
+5. Name: `DISCORD_WEBHOOK_URL`, Value: your webhook URL
+
+### 4. Enable GitHub Actions & Pages
+1. Go to your repo → Actions tab → Enable workflows
+2. Go to Settings → Pages → Source: GitHub Actions
+3. The first workflow run will start automatically
+
+### 5. View Your Dashboard
+After the first deployment: `https://yourusername.github.io/sitePulse/`
+
+## 📊 Data Storage
+
+All monitoring data is stored as JSON files in `/data/`:
+
+```
+/data/
+├── uptime/
+│   ├── uptime-latest.json      # Latest check results
+│   └── uptime-2025-01-27.json  # Daily historical data
+└── perf/
+    ├── perf-latest.json        # Latest Lighthouse results
+    ├── perf-summary-site1.json # Site performance history
+    └── perf-site1-timestamp.json # Full Lighthouse reports
+```
+
+## ⚙️ Configuration
+
+### Adding a New Site
+1. Edit `sites.yaml`
+2. Add your site configuration
+3. Commit and push - monitoring starts automatically
+
+### Adjusting Check Frequency
+Edit `.github/workflows/monitor.yml`:
+```yaml
+schedule:
+  - cron: '*/15 * * * *'  # Every 15 minutes (uptime)
+  - cron: '0 */3 * * *'   # Every 3 hours (performance)
+```
+
+### Performance Budgets
+```yaml
+perf_budget:
+  lcp_ms: 2500        # Largest Contentful Paint
+  tbt_ms: 300         # Total Blocking Time  
+  perf_score: 80      # Overall Lighthouse score
+  uptime_threshold: 5000  # Response time threshold
+```
+
+## 🔧 Local Development
+
+### Run Monitoring Scripts Locally
+```bash
+npm install
+npm run uptime      # Test uptime checks
+npm run lighthouse  # Test performance audits
+npm run alerts      # Test Discord alerts
+```
+
+### Run Dashboard Locally
+```bash
+cd dashboard
+npm install
+npm run dev
+```
+
+### Deploy Dashboard
+```bash
+cd dashboard
+npm run build
+npm run deploy
+```
+
+## 📈 Understanding the Data
+
+### Uptime Metrics
+- **Status Code**: HTTP response (200 = good)
+- **Response Time**: How fast your site responds
+- **Success**: Green if status=200 AND response < threshold
+
+### Performance Metrics
+- **Performance Score**: 0-100 (90+ is excellent)
+- **LCP**: Largest Contentful Paint (<2.5s is good)
+- **TBT**: Total Blocking Time (<300ms is good)
+- **CLS**: Cumulative Layout Shift (<0.1 is good)
+
+### Alert Triggers
+- Site returns non-200 status code
+- Response time exceeds threshold
+- Performance score drops below budget
+- LCP/TBT exceeds budget limits
+
+## 🔍 Troubleshooting
+
+### GitHub Actions Not Running
+1. Check Actions tab for error messages
+2. Ensure workflows are enabled in repo settings
+3. Verify secrets are set correctly
+
+### Dashboard Not Loading Data
+1. Check if data files exist in `/data/` folders
+2. Verify GitHub Pages is enabled and deployed
+3. Check browser console for CORS errors
+
+### No Discord Alerts
+1. Verify `DISCORD_WEBHOOK_URL` secret is set
+2. Test webhook URL manually with curl
+3. Check Actions logs for alert script errors
+
+## 📋 Roadmap
+
+### Phase 2 Features
+- [ ] Matomo integration for user behavior analytics
+- [ ] Shopify order spike detection via Admin API
+- [ ] WordPress integrity checks (wp core verify-checksums)
+- [ ] SMTP email alerts as Discord fallback
+- [ ] Telegram alerts support
+- [ ] CLI tool for adding sites
+
+### Phase 3 Features  
+- [ ] Prometheus + Grafana local Docker stack
+- [ ] Cache headers validation
+- [ ] CDN performance checks
+- [ ] Multi-region monitoring
+- [ ] Custom alert rules engine
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test locally
+5. Submit a pull request
+
+## 📄 License
+
+MIT License - feel free to use this for your own monitoring needs!
+
+## 🆘 Support
+
+- Create an issue for bugs or feature requests
+- Check existing issues for common problems
+- Join discussions for questions and tips
+
+---
+
+**Built with ❤️ for the WordPress & Shopify community**
 

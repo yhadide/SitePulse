@@ -1,0 +1,32 @@
+sites:
+  - name: golden-beach-villas
+    type: wordpress
+    url: https://goldenbeachvillas.com/
+    perf_budget:
+      lcp_ms: 2500
+      tbt_ms: 300
+      perf_score: 80
+      uptime_threshold: 5000
+    tags: ["production", "wordpress"]
+    
+  - name: gelball-store
+    type: shopify
+    url: https://gelball.ma/
+    perf_budget:
+      lcp_ms: 2500
+      tbt_ms: 300
+      perf_score: 80
+      uptime_threshold: 5000
+    tags: ["production", "shopify"]
+
+# Alert settings
+alerts:
+  discord_webhook: true
+  smtp_fallback: false
+  consecutive_failures: 3  # Alert after 3 consecutive failures
+  cooldown_minutes: 60     # Don't spam alerts more than once per hour
+
+# Monitoring frequency (GitHub Actions cron)
+schedule:
+  uptime_cron: "*/30 * * * *"    # Every 30 minutes
+  lighthouse_cron: "0 */6 * * *" # Every 6 hours
