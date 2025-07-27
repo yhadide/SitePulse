@@ -1,34 +1,20 @@
 [
   {
-    "timestamp": "2025-01-27T16:00:00.000Z",
+    "timestamp": "2025-07-27T16:27:40.807Z",
     "site": "golden-beach-villas",
     "url": "https://goldenbeachvillas.com/",
-    "success": true,
-    "error": null,
-    "metrics": {
-      "performance_score": 85,
-      "lcp_ms": 2100,
-      "tbt_ms": 250,
-      "cls": 0.05,
-      "fcp_ms": 1800,
-      "speed_index": 2200
-    },
+    "success": false,
+    "error": "No JSON results found in Lighthouse output",
+    "metrics": null,
     "budget_violations": []
   },
   {
-    "timestamp": "2025-01-27T16:00:00.000Z",
+    "timestamp": "2025-07-27T16:27:40.807Z",
     "site": "gelball-store",
     "url": "https://gelball.ma/",
-    "success": true,
-    "error": null,
-    "metrics": {
-      "performance_score": 82,
-      "lcp_ms": 2300,
-      "tbt_ms": 280,
-      "cls": 0.08,
-      "fcp_ms": 1900,
-      "speed_index": 2400
-    },
+    "success": false,
+    "error": "No JSON results found in Lighthouse output",
+    "metrics": null,
     "budget_violations": []
   }
 ]
