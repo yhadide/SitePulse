@@ -9,5 +9,4 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
   },
-  publicDir: '../', // Serve files from repo root (for data files)
 })
