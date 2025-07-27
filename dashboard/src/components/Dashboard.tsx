@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Site, UptimeResult, PerformanceResult } from '../App'
+import type { Site, UptimeResult, PerformanceResult } from '../App'
 
 interface DashboardProps {
   onSiteSelect: (siteName: string) => void
@@ -24,7 +24,7 @@ const Dashboard = ({ onSiteSelect }: DashboardProps) => {
       setLoading(true)
       
       // Load sites config
-      const sitesResponse = await fetch('/sites.yaml')
+      const sitesResponse = await fetch('./sites.yaml')
       const sitesText = await sitesResponse.text()
       // Simple YAML parsing for sites array
       const sitesMatch = sitesText.match(/sites:\s*([\s\S]*?)(?=\n\w|\n$|$)/)
@@ -56,14 +56,14 @@ const Dashboard = ({ onSiteSelect }: DashboardProps) => {
       }
 
       // Load latest uptime data
-      const uptimeResponse = await fetch('/data/uptime/uptime-latest.json')
+      const uptimeResponse = await fetch('./data/uptime/uptime-latest.json')
       if (uptimeResponse.ok) {
         const uptimeJson = await uptimeResponse.json()
         setUptimeData(uptimeJson)
       }
 
       // Load latest performance data
-      const perfResponse = await fetch('/data/perf/perf-latest.json')
+      const perfResponse = await fetch('./data/perf/perf-latest.json')
       if (perfResponse.ok) {
         const perfJson = await perfResponse.json()
         setPerfData(perfJson)
