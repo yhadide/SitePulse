@@ -46,8 +46,15 @@ export interface PerformanceResult {
 function App() {
   const [selectedSite, setSelectedSite] = useState<string | null>(null)
 
+  // Add a simple test to see if React is working
+  console.log('App component loaded!')
+
   return (
     <div className="app">
+      <div style={{ padding: '20px', background: 'white', margin: '20px' }}>
+        <h1>SitePulse Dashboard Test</h1>
+        <p>If you see this, React is working!</p>
+      </div>
       {selectedSite ? (
         <SiteDetail 
           siteName={selectedSite} 
