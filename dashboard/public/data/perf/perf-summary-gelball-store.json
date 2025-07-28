@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2025-07-27T16:27:40.807Z",
+    "performance_score": 0,
+    "lcp_ms": 0,
+    "tbt_ms": 0,
+    "cls": 0,
+    "success": false,
+    "budget_violations": []
+  }
+]
