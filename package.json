@@ -1,22 +1,8 @@
 {
-  "name": "sitepulse",
+  "name": "sitepulse-root",
   "version": "1.0.0",
-  "description": "Free monitoring stack for WordPress & Shopify sites",
   "scripts": {
-    "uptime": "node scripts/uptime.js",
-    "lighthouse": "node scripts/lighthouse.js",
-    "alerts": "node scripts/alerts.js",
-    "dev": "cd dashboard && npm run dev",
-    "build": "cd dashboard && npm run build",
-    "deploy": "cd dashboard && npm run build && npm run deploy"
-  },
-  "dependencies": {
-    "axios": "^1.6.0",
-    "yaml": "^2.3.4",
-    "@lhci/cli": "^0.12.0"
-  },
-  "devDependencies": {},
-  "keywords": ["monitoring", "wordpress", "shopify", "lighthouse", "github-actions"],
-  "author": "",
-  "license": "MIT"
+    "build": "cd dashboard && npm install && npm run build",
+    "install": "cd dashboard && npm install"
+  }
 }
