@@ -37,11 +37,8 @@ jobs:
         node-version: '18'
         cache: 'npm'
 
-    - name: Install root dependencies
+    - name: Install dependencies
       run: npm install
-
-    - name: Install Lighthouse CI
-      run: npm install -g @lhci/cli
 
     - name: Run uptime checks
       id: uptime
@@ -63,13 +60,20 @@ jobs:
       if: steps.uptime.outcome == 'failure' || steps.lighthouse.outcome == 'failure'
       run: npm run alerts
       env:
-        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        DISCORD_WEBHOOK_URL: ${{ secrets.DS_WEBHOOK_URL }}
+
+    - name: Debug step outcomes
+      run: |
+        echo "Uptime outcome: ${{ steps.uptime.outcome }}"
+        echo "Lighthouse outcome: ${{ steps.lighthouse.outcome }}"
+        echo "Uptime conclusion: ${{ steps.uptime.conclusion }}"
+        echo "Lighthouse conclusion: ${{ steps.lighthouse.conclusion }}"
 
     - name: Send status updates for successful checks
       if: steps.uptime.outcome == 'success' || steps.lighthouse.outcome == 'success'
       run: npm run status
       env:
-        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        DISCORD_WEBHOOK_URL: ${{ secrets.DS_WEBHOOK_URL }}
 
     - name: Commit and push results
       run: |
