@@ -51,7 +51,7 @@ function extractMetrics(lhResults) {
     // Parse the Lighthouse results
     const results = JSON.parse(lhResults);
     const audits = results.audits;
-    
+
     return {
       performance_score: Math.round(results.categories.performance.score * 100),
       lcp_ms: Math.round(audits['largest-contentful-paint'].numericValue),
@@ -75,7 +75,7 @@ async function runPerformanceAudits() {
 
   for (const site of config.sites) {
     console.log(`Auditing ${site.name} (${site.url})...`);
-    
+
     let result = {
       timestamp,
       site: site.name,
@@ -89,7 +89,7 @@ async function runPerformanceAudits() {
     try {
       // Run Lighthouse
       const { stdout } = await runLighthouse(site.url);
-      
+
       // Find the JSON results in stdout
       const jsonMatch = stdout.match(/(\{[\s\S]*\})/);
       if (!jsonMatch) {
@@ -138,11 +138,11 @@ async function runPerformanceAudits() {
     // Update site summary
     const summaryFile = path.join(perfDir, `perf-summary-${site.name}.json`);
     let summary = [];
-    
+
     if (fs.existsSync(summaryFile)) {
       summary = JSON.parse(fs.readFileSync(summaryFile, 'utf8'));
     }
-    
+
     // Keep last 100 entries
     summary.push({
       timestamp,
@@ -153,11 +153,11 @@ async function runPerformanceAudits() {
       success: result.success,
       budget_violations: result.budget_violations
     });
-    
+
     if (summary.length > 100) {
       summary = summary.slice(-100);
     }
-    
+
     fs.writeFileSync(summaryFile, JSON.stringify(summary, null, 2));
   }
 
@@ -166,7 +166,7 @@ async function runPerformanceAudits() {
   fs.writeFileSync(latestFile, JSON.stringify(results, null, 2));
 
   console.log(`📊 Performance results saved`);
-  
+
   // Exit with error code if there are budget violations
   if (hasFailures) {
     console.log('❌ Some performance budgets violated - this will trigger alerts');

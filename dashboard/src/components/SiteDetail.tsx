@@ -48,7 +48,7 @@ const SiteDetail = ({ siteName, onBack }: SiteDetailProps) => {
   const loadHistoricalData = async () => {
     try {
       setLoading(true)
-      
+
       // Try to load historical performance data
       const response = await fetch(`/data/perf/perf-summary-${siteName}.json`)
       if (response.ok) {
@@ -66,12 +66,12 @@ const SiteDetail = ({ siteName, onBack }: SiteDetailProps) => {
   }
 
   const createChartData = (dataKey: keyof HistoricalData, label: string, color: string) => {
-    const labels = historicalData.map(d => 
+    const labels = historicalData.map(d =>
       new Date(d.timestamp).toLocaleDateString()
     )
-    
+
     const data = historicalData.map(d => d[dataKey] as number)
-    
+
     return {
       labels,
       datasets: [
@@ -127,7 +127,7 @@ const SiteDetail = ({ siteName, onBack }: SiteDetailProps) => {
       <button className="back-button" onClick={onBack}>
         ← Back to Dashboard
       </button>
-      
+
       <div className="detail-header">
         <h1 className="detail-title">{siteName}</h1>
         <p>Performance trends and metrics</p>
@@ -141,33 +141,33 @@ const SiteDetail = ({ siteName, onBack }: SiteDetailProps) => {
         <div className="charts-grid">
           <div className="chart-card">
             <h3 className="chart-title">Performance Score</h3>
-            <Line 
-              data={createChartData('performance_score', 'Performance Score', '#3b82f6')} 
-              options={chartOptions} 
+            <Line
+              data={createChartData('performance_score', 'Performance Score', '#3b82f6')}
+              options={chartOptions}
             />
           </div>
 
           <div className="chart-card">
             <h3 className="chart-title">Largest Contentful Paint (ms)</h3>
-            <Line 
-              data={createChartData('lcp_ms', 'LCP (ms)', '#10b981')} 
-              options={chartOptions} 
+            <Line
+              data={createChartData('lcp_ms', 'LCP (ms)', '#10b981')}
+              options={chartOptions}
             />
           </div>
 
           <div className="chart-card">
             <h3 className="chart-title">Total Blocking Time (ms)</h3>
-            <Line 
-              data={createChartData('tbt_ms', 'TBT (ms)', '#f59e0b')} 
-              options={chartOptions} 
+            <Line
+              data={createChartData('tbt_ms', 'TBT (ms)', '#f59e0b')}
+              options={chartOptions}
             />
           </div>
 
           <div className="chart-card">
             <h3 className="chart-title">Cumulative Layout Shift</h3>
-            <Line 
-              data={createChartData('cls', 'CLS', '#ef4444')} 
-              options={chartOptions} 
+            <Line
+              data={createChartData('cls', 'CLS', '#ef4444')}
+              options={chartOptions}
             />
           </div>
         </div>
