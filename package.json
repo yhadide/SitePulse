@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "scripts": {
     "build": "cd dashboard && npm install && npm run build",
-    "install": "cd dashboard && npm install"
+    "install": "cd dashboard && npm install",
+    "uptime": "node scripts/uptime.js",
+    "lighthouse": "node scripts/lighthouse.js",
+    "alerts": "node scripts/alerts.js",
+    "status": "node scripts/alerts.js --status-only",
+    "test-webhook": "node test-webhook.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "yaml": "^2.3.4",
+    "@lhci/cli": "^0.12.0"
   }
 }
