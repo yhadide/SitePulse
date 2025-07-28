@@ -50,7 +50,7 @@ const SiteDetail = ({ siteName, onBack }: SiteDetailProps) => {
       setLoading(true)
       
       // Try to load historical performance data
-      const response = await fetch(`./data/perf/perf-summary-${siteName}.json`)
+      const response = await fetch(`/data/perf/perf-summary-${siteName}.json`)
       if (response.ok) {
         const data = await response.json()
         setHistoricalData(data.slice(-50)) // Last 50 data points

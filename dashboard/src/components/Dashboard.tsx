@@ -54,14 +54,14 @@ const Dashboard = ({ onSiteSelect }: DashboardProps) => {
             setSites(hardcodedSites)
 
             // Load latest uptime data
-            const uptimeResponse = await fetch('./data/uptime/uptime-latest.json')
+            const uptimeResponse = await fetch('/data/uptime/uptime-latest.json')
             if (uptimeResponse.ok) {
                 const uptimeJson = await uptimeResponse.json()
                 setUptimeData(uptimeJson)
             }
 
             // Load latest performance data
-            const perfResponse = await fetch('./data/perf/perf-latest.json')
+            const perfResponse = await fetch('/data/perf/perf-latest.json')
             if (perfResponse.ok) {
                 const perfJson = await perfResponse.json()
                 setPerfData(perfJson)

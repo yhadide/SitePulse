@@ -1,0 +1,17 @@
+{
+  "buildCommand": "cd dashboard && npm run build",
+  "outputDirectory": "dashboard/dist",
+  "installCommand": "cd dashboard && npm install",
+  "framework": "vite",
+  "functions": {
+    "dashboard/dist/index.html": {
+      "includeFiles": "data/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
