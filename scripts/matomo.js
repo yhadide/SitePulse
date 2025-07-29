@@ -6,8 +6,8 @@ const yaml = require('yaml');
 // Load configuration
 const config = yaml.parse(fs.readFileSync('sites.yaml', 'utf8'));
 
-// Matomo configuration - update with your Railway URL
-const MATOMO_URL = process.env.MATOMO_URL || 'https://your-railway-url.up.railway.app';
+// Matomo configuration - Railway deployment
+const MATOMO_URL = process.env.MATOMO_URL || 'https://matomo-production-08cf.up.railway.app';
 const MATOMO_TOKEN = process.env.MATOMO_TOKEN; // Get from Matomo settings
 
 // Ensure data directories exist

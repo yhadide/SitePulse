@@ -1,50 +1,35 @@
-# Railway Environment Variables Template
+# Railway Matomo Setup - COMPLETED ✅
 
-## Required Environment Variables for Matomo Service
+## Your Railway Matomo Configuration
 
-Copy these to your Railway Matomo service Variables tab:
+### 🚀 **Deployed Services**
+- **Matomo**: https://matomo-production-08cf.up.railway.app
+- **MariaDB**: mariadb-production-264b.up.railway.app
+- **Status**: ✅ Fully operational with real visitor tracking
 
-### Database Configuration
-```
-MATOMO_DATABASE_HOST=${{MySQL.MYSQL_PRIVATE_URL}}
-MATOMO_DATABASE_ADAPTER=mysql
-MATOMO_DATABASE_TABLES_PREFIX=matomo_
-MATOMO_DATABASE_USERNAME=${{MySQL.MYSQL_USER}}
-MATOMO_DATABASE_PASSWORD=${{MySQL.MYSQL_PASSWORD}}
-MATOMO_DATABASE_DBNAME=${{MySQL.MYSQL_DATABASE}}
-```
+### 📊 **Websites Configured**
+- **Golden Beach Villas** (Site ID 1): https://goldenbeachvillas.com
+- **Gelball Store** (Site ID 2): https://gelball.ma
 
-### Security Configuration
-```
-MATOMO_SALT=your-random-32-character-salt-here
-```
+### 🔑 **GitHub Secrets Required**
 
-### Optional: Custom Domain
-```
-MATOMO_TRUSTED_HOSTS=your-custom-domain.com,your-railway-url.up.railway.app
-```
-
-## Required GitHub Secrets
-
-Add these to your GitHub repository secrets:
+Add these to your GitHub repository secrets for automated monitoring:
 
 ```
-MATOMO_URL=https://your-railway-url.up.railway.app
-MATOMO_TOKEN=your-matomo-api-token
+MATOMO_URL=https://matomo-production-08cf.up.railway.app
+MATOMO_TOKEN=604d3aab0d5df07a042782b791a8f634
 DS_WEBHOOK_URL=your-discord-webhook-url
 ```
 
-## Railway Services Needed
+### 📈 **Current Status**
+- ✅ Matomo tracking codes installed on both websites
+- ✅ Real visitor data being collected
+- ✅ API integration working
+- ✅ Ready for automated monitoring
 
-1. **Matomo Service** (from this repository)
-2. **MySQL Database** (add from Railway templates)
+## Next Steps
 
-## Post-Deployment Steps
-
-1. Visit your Railway URL
-2. Complete Matomo setup wizard
-3. Create admin account
-4. Add websites (Golden Beach Villas, Gelball Store)
-5. Generate API token
-6. Update GitHub secrets
-7. Update tracking codes on your websites
+1. **Add GitHub Secrets** (see above)
+2. **Enable GitHub Actions** (uncomment schedule in monitor.yml)
+3. **Set up Discord webhook** for alerts
+4. **Monitor your dashboard** on Vercel
