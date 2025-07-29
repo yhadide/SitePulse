@@ -1,11 +1,11 @@
 name: Site Monitoring
 
 on:
-  # schedule:
-  #   # Uptime checks every 30 minutes (2 sites = ~1 min per run)
-  #   - cron: '*/30 * * * *'
-  #   # Performance checks every 6 hours (2 sites = ~4 min per run)
-  #   - cron: '0 */6 * * *'
+  schedule:
+    # Uptime checks every 30 minutes (2 sites = ~1 min per run)
+    - cron: '*/30 * * * *'
+    # Performance checks every 6 hours (2 sites = ~4 min per run)
+    - cron: '0 */6 * * *'
   workflow_dispatch: # Allow manual runs
     inputs:
       check_type:
