@@ -6,8 +6,11 @@
     "install": "cd dashboard && npm install",
     "uptime": "node scripts/uptime.js",
     "lighthouse": "node scripts/lighthouse.js",
+    "matomo": "node scripts/matomo.js",
     "alerts": "node scripts/alerts.js",
-    "status": "node scripts/alerts.js --status-only"
+    "status": "node scripts/alerts.js --status-only",
+    "test-matomo": "node scripts/matomo.js",
+    "deploy-check": "echo 'SitePulse monitoring stack ready for Railway deployment'"
   },
   "dependencies": {
     "axios": "^1.6.0",

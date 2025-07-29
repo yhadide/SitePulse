@@ -1,11 +1,11 @@
 name: Site Monitoring
 
 on:
-  schedule:
-    # Uptime checks every 30 minutes (2 sites = ~1 min per run)
-    - cron: '*/30 * * * *'
-    # Performance checks every 6 hours (2 sites = ~4 min per run)
-    - cron: '0 */6 * * *'
+  # schedule:
+  #   # Uptime checks every 30 minutes (2 sites = ~1 min per run)
+  #   - cron: '*/30 * * * *'
+  #   # Performance checks every 6 hours (2 sites = ~4 min per run)
+  #   - cron: '0 */6 * * *'
   workflow_dispatch: # Allow manual runs
     inputs:
       check_type:
@@ -56,6 +56,16 @@ jobs:
         echo "lighthouse_success=true" >> $GITHUB_OUTPUT
       continue-on-error: true
 
+    - name: Collect Matomo analytics
+      id: matomo
+      if: github.event.schedule == '0 */6 * * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.check_type == 'lighthouse' || github.event.inputs.check_type == 'both')
+      run: |
+        npm run matomo
+        echo "matomo_success=true" >> $GITHUB_OUTPUT
+      continue-on-error: true
+      env:
+        MATOMO_TOKEN: ${{ secrets.MATOMO_TOKEN }}
+
     - name: Send alerts if checks failed
       if: steps.uptime.outcome == 'failure' || steps.lighthouse.outcome == 'failure'
       run: npm run alerts
@@ -70,8 +80,14 @@ jobs:
         echo "Lighthouse conclusion: ${{ steps.lighthouse.conclusion }}"
 
     - name: Send status updates for successful checks
-      if: steps.uptime.outcome == 'success' || steps.lighthouse.outcome == 'success'
+      if: steps.uptime.outcome == 'success' || steps.lighthouse.outcome == 'success' || steps.matomo.outcome == 'success'
       run: npm run status
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DS_WEBHOOK_URL }}
+
+    - name: Send Matomo analytics updates
+      if: steps.matomo.outcome == 'success'
+      run: node -e "const { sendMatomoUpdates } = require('./scripts/alerts.js'); sendMatomoUpdates();"
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DS_WEBHOOK_URL }}
 

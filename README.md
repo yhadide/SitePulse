@@ -44,7 +44,14 @@ git clone https://github.com/yourusername/sitePulse.git
 cd sitePulse
 ```
 
-### 2. Configure Your Sites
+### 2. Deploy Matomo to Railway
+1. **Sign up**: https://railway.app with GitHub
+2. **Create project** from your sitePulse repository
+3. **Add MySQL database** service
+4. **Configure environment variables** (see `railway-env-template.md`)
+5. **Complete Matomo setup** at your Railway URL
+
+### 3. Configure Your Sites
 Edit `sites.yaml`:
 ```yaml
 sites:
@@ -58,20 +65,17 @@ sites:
       uptime_threshold: 5000
 ```
 
-### 3. Set Up Discord Alerts
-1. Create a Discord server
-2. Go to Server Settings → Integrations → Webhooks
-3. Create New Webhook, copy the URL
-4. In your GitHub repo: Settings → Secrets → New repository secret
-5. Name: `DISCORD_WEBHOOK_URL`, Value: your webhook URL
+### 4. Set Up Integrations
+1. **Discord**: Create webhook, add to GitHub secrets as `DS_WEBHOOK_URL`
+2. **GitHub Secrets**: Add `MATOMO_URL` and `MATOMO_TOKEN`
+3. **Website Tracking**: Add Matomo tracking codes to your sites
 
-### 4. Enable GitHub Actions & Pages
-1. Go to your repo → Actions tab → Enable workflows
-2. Go to Settings → Pages → Source: GitHub Actions
-3. The first workflow run will start automatically
+### 5. Enable Monitoring
+1. **Uncomment** schedule in `.github/workflows/monitor.yml`
+2. **Enable GitHub Actions** in repository settings
+3. **View dashboard** at your Vercel URL
 
-### 5. View Your Dashboard
-After the first deployment: `https://yourusername.github.io/sitePulse/`
+📖 **Detailed guide**: See `DEPLOYMENT.md`
 
 ## 📊 Data Storage
 

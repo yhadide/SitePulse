@@ -39,7 +39,7 @@ function createUptimeUpdate(results) {
 
   const embed = {
     title: "📊 Uptime Check Complete",
-    color: failedSites.length > 0 ? 0xffa500 : 0x00ff00, // Orange if issues, Green if all good
+    color: failedSites.length > 0 ? 0xffa500 : 0x00ff00,
     timestamp: new Date().toISOString(),
     description: `Checked ${results.length} sites`,
     fields: [
@@ -223,11 +223,55 @@ if (require.main === module) {
   }
 }
 
+function createMatomoUpdate(results) {
+  const successfulSites = results.filter(r => r.success);
+
+  if (successfulSites.length === 0) return null;
+
+  const embed = {
+    title: "📊 Analytics Update",
+    color: 0x3b82f6, // Blue
+    timestamp: new Date().toISOString(),
+    description: `Visitor analytics for ${results.length} sites`,
+    fields: successfulSites.map(site => ({
+      name: `👥 ${site.site}`,
+      value: `**Visits:** ${site.metrics.visits}\n**Unique Visitors:** ${site.metrics.unique_visitors}\n**Page Views:** ${site.metrics.page_views}\n**Bounce Rate:** ${site.metrics.bounce_rate}\n**Online Now:** ${site.metrics.visitors_online}`,
+      inline: true
+    })),
+    footer: {
+      text: "SitePulse Analytics • Next update in 6 hours"
+    }
+  };
+
+  return {
+    embeds: [embed]
+  };
+}
+
+async function sendMatomoUpdates() {
+  console.log('📊 Sending Matomo analytics updates...');
+
+  const matomoLatestFile = path.join('data', 'matomo', 'matomo-latest.json');
+  if (fs.existsSync(matomoLatestFile)) {
+    const matomoResults = JSON.parse(fs.readFileSync(matomoLatestFile, 'utf8'));
+    const matomoUpdate = createMatomoUpdate(matomoResults);
+
+    if (matomoUpdate) {
+      console.log('📊 Sending Matomo analytics update...');
+      await sendDiscordAlert(matomoUpdate);
+    }
+  }
+
+  console.log('✅ Matomo updates sent');
+}
+
 module.exports = {
   checkAndSendAlerts,
   sendStatusUpdates,
+  sendMatomoUpdates,
   createUptimeAlert,
   createPerformanceAlert,
   createUptimeUpdate,
-  createPerformanceUpdate
+  createPerformanceUpdate,
+  createMatomoUpdate
 };

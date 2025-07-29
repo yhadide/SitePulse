@@ -12,6 +12,12 @@ yarn-error.log*
 dashboard/dist/
 dashboard/node_modules/
 
+# Railway
+.railway/
+
+# Docker
+.dockerignore
+
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -34,3 +40,7 @@ logs/
 # Temporary files
 *.tmp
 *.temp
+
+# Local development files
+docker-compose.override.yml
+test-*.html
