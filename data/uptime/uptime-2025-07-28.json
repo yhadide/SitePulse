@@ -322,5 +322,275 @@
     "response_ms": 586,
     "success": true,
     "error": null
+  },
+  {
+    "timestamp": "2025-07-28T14:43:19.215Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 497,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T14:43:19.215Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 626,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T14:49:53.364Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 911,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T14:49:53.364Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 391,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T15:25:08.094Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 725,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T15:25:08.094Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 477,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T15:47:12.208Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 818,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T15:47:12.208Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 419,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T16:29:24.723Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 917,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T16:29:24.723Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 873,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T16:57:12.645Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 3116,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T16:57:12.645Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 697,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T17:27:23.909Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 976,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T17:27:23.909Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 1009,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T17:47:17.246Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 922,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T17:47:17.246Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 372,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T18:33:53.936Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 3343,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T18:33:53.936Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 730,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T19:19:17.348Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 914,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T19:19:17.348Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 986,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T19:40:38.850Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 2198,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T19:40:38.850Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 454,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T20:25:26.454Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 1018,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T20:25:26.454Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 979,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T20:46:53.524Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 437,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T20:46:53.524Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 1006,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T21:20:03.412Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 996,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T21:20:03.412Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 672,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T21:42:24.567Z",
+    "site": "golden-beach-villas",
+    "url": "https://goldenbeachvillas.com/",
+    "status_code": 200,
+    "response_ms": 2989,
+    "success": true,
+    "error": null
+  },
+  {
+    "timestamp": "2025-07-28T21:42:24.567Z",
+    "site": "gelball-store",
+    "url": "https://gelball.ma/",
+    "status_code": 200,
+    "response_ms": 761,
+    "success": true,
+    "error": null
   }
 ]

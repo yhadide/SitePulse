@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-07-28T14:43:20.577Z",
+  "site": "gelball-store",
+  "url": "https://gelball.ma/",
+  "success": false,
+  "error": "No JSON results found in Lighthouse output",
+  "metrics": null,
+  "budget_violations": []
+}
