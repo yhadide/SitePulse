@@ -150,5 +150,43 @@
       "avg_dom_completion_time": 0,
       "visitors_online": 0
     }
+  },
+  {
+    "timestamp": "2025-07-29T18:15:31.455Z",
+    "site": "golden-beach-villas",
+    "siteId": 1,
+    "url": "https://goldenbeachvillas.com/",
+    "success": true,
+    "error": null,
+    "metrics": {
+      "visits": 17,
+      "unique_visitors": 16,
+      "page_views": 27,
+      "bounce_rate": "82%",
+      "avg_time_on_site": 43,
+      "avg_page_load_time": 1.82,
+      "avg_dom_processing_time": 0,
+      "avg_dom_completion_time": 0,
+      "visitors_online": 0
+    }
+  },
+  {
+    "timestamp": "2025-07-29T18:15:31.455Z",
+    "site": "gelball-store",
+    "siteId": 2,
+    "url": "https://gelball.ma/",
+    "success": true,
+    "error": null,
+    "metrics": {
+      "visits": 35,
+      "unique_visitors": 34,
+      "page_views": 73,
+      "bounce_rate": "91%",
+      "avg_time_on_site": 5,
+      "avg_page_load_time": 0.92,
+      "avg_dom_processing_time": 0,
+      "avg_dom_completion_time": 0,
+      "visitors_online": 0
+    }
   }
 ]
