@@ -61,5 +61,59 @@
     "cls": 0,
     "success": false,
     "budget_violations": []
+  },
+  {
+    "timestamp": "2025-07-29T16:11:08.361Z",
+    "performance_score": 0,
+    "lcp_ms": 0,
+    "tbt_ms": 0,
+    "cls": 0,
+    "success": false,
+    "budget_violations": []
+  },
+  {
+    "timestamp": "2025-07-29T16:25:24.868Z",
+    "performance_score": 0,
+    "lcp_ms": 0,
+    "tbt_ms": 0,
+    "cls": 0,
+    "success": false,
+    "budget_violations": []
+  },
+  {
+    "timestamp": "2025-07-29T18:14:00.887Z",
+    "performance_score": 0,
+    "lcp_ms": 0,
+    "tbt_ms": 0,
+    "cls": 0,
+    "success": false,
+    "budget_violations": []
+  },
+  {
+    "timestamp": "2025-07-30T00:46:33.521Z",
+    "performance_score": 0,
+    "lcp_ms": 0,
+    "tbt_ms": 0,
+    "cls": 0,
+    "success": false,
+    "budget_violations": []
+  },
+  {
+    "timestamp": "2025-07-30T06:15:43.375Z",
+    "performance_score": 0,
+    "lcp_ms": 0,
+    "tbt_ms": 0,
+    "cls": 0,
+    "success": false,
+    "budget_violations": []
+  },
+  {
+    "timestamp": "2025-07-30T12:18:02.141Z",
+    "performance_score": 0,
+    "lcp_ms": 0,
+    "tbt_ms": 0,
+    "cls": 0,
+    "success": false,
+    "budget_violations": []
   }
 ]
