@@ -1,19 +1,19 @@
 [
   {
-    "timestamp": "2025-07-30T08:55:25.285Z",
+    "timestamp": "2025-07-30T09:27:28.966Z",
     "site": "golden-beach-villas",
     "url": "https://goldenbeachvillas.com/",
     "status_code": 200,
-    "response_ms": 1045,
+    "response_ms": 3294,
     "success": true,
     "error": null
   },
   {
-    "timestamp": "2025-07-30T08:55:25.285Z",
+    "timestamp": "2025-07-30T09:27:28.966Z",
     "site": "gelball-store",
     "url": "https://gelball.ma/",
     "status_code": 200,
-    "response_ms": 950,
+    "response_ms": 925,
     "success": true,
     "error": null
   }
