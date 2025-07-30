@@ -1,0 +1,82 @@
+{
+  "timestamp": "2025-07-30T17:10:53.198Z",
+  "site_url": "https://goldenbeachvillas.com",
+  "checks": {
+    "wp_api_accessible": true,
+    "wp_version": "6.8.2",
+    "sensitive_files_protected": false,
+    "security_headers": {
+      "x-frame-options": false,
+      "x-content-type-options": false,
+      "x-xss-protection": false,
+      "strict-transport-security": false
+    },
+    "malware_signatures_found": [],
+    "malware_scan_clean": true,
+    "wp_version_exposed": true,
+    "detected_plugins": [
+      "elementor",
+      "contact-form-7"
+    ],
+    "vulnerability_scan": {
+      "Admin area protection": true,
+      "Login page accessibility": true,
+      "XML-RPC endpoint": true,
+      "User enumeration via REST API": false
+    },
+    "authentication_working": true,
+    "authenticated_user": "proclaimers.workspace@gmail.com",
+    "user_capabilities": {},
+    "total_plugins": 14,
+    "active_plugins": 14,
+    "plugins_needing_updates": 0,
+    "total_users": 1,
+    "admin_users": 0,
+    "total_posts": 9,
+    "total_pages": 5
+  },
+  "issues": [
+    {
+      "type": "file_exposure",
+      "severity": "high",
+      "message": "Sensitive file exposed: /readme.html (200)"
+    },
+    {
+      "type": "file_exposure",
+      "severity": "high",
+      "message": "Sensitive file exposed: /license.txt (200)"
+    },
+    {
+      "type": "security_header",
+      "severity": "medium",
+      "message": "X-Frame-Options header missing"
+    },
+    {
+      "type": "security_header",
+      "severity": "medium",
+      "message": "X-Content-Type-Options header missing"
+    },
+    {
+      "type": "security_header",
+      "severity": "medium",
+      "message": "X-XSS-Protection header missing"
+    },
+    {
+      "type": "security_header",
+      "severity": "medium",
+      "message": "HSTS header missing (HTTPS sites)"
+    },
+    {
+      "type": "version_disclosure",
+      "severity": "low",
+      "message": "WordPress version exposed in meta tag: 6.8.2"
+    },
+    {
+      "type": "vulnerability",
+      "severity": "medium",
+      "message": "User enumeration via REST API: Unexpected status 200 for /wp-json/wp/v2/users"
+    }
+  ],
+  "security_score": 15,
+  "success": true
+}

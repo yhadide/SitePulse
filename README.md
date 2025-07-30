@@ -6,8 +6,7 @@ Monitor uptime, performance, and get alerts - all running on GitHub's free tier 
 
 ## 🎯 Features
 
-- **Uptime Monitoring**: HTTP status checks every 30 minutes
-- **Performance Audits**: Lighthouse CI every 6 hours (LCP, TBT, CLS, Performance Score)
+- **Comprehensive Monitoring**: Daily checks including uptime, performance, analytics, sales, and security
 - **Real-time Dashboard**: React dashboard hosted on GitHub Pages
 - **Smart Alerts**: Discord webhooks when thresholds are violated
 - **Zero Cost**: Runs entirely on GitHub Actions + GitHub Pages free tiers
@@ -103,8 +102,7 @@ All monitoring data is stored as JSON files in `/data/`:
 Edit `.github/workflows/monitor.yml`:
 ```yaml
 schedule:
-  - cron: '*/15 * * * *'  # Every 15 minutes (uptime)
-  - cron: '0 */3 * * *'   # Every 3 hours (performance)
+  - cron: '0 8 * * *'  # Daily at 8 AM UTC (comprehensive monitoring)
 ```
 
 ### Performance Budgets

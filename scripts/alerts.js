@@ -59,7 +59,7 @@ function createUptimeUpdate(results) {
       }
     ],
     footer: {
-      text: "SitePulse Monitoring • Next check in 30 minutes"
+      text: "SitePulse Monitoring • Next check tomorrow"
     }
   };
 
@@ -265,13 +265,288 @@ async function sendMatomoUpdates() {
   console.log('✅ Matomo updates sent');
 }
 
+// Shopify Order Alerts
+function createShopifyOrderAlert(result) {
+  if (!result.alerts || result.anomalies.length === 0) return null;
+
+  const highSeverityAnomalies = result.anomalies.filter(a => a.severity === 'high');
+  if (highSeverityAnomalies.length === 0) return null;
+
+  const embed = {
+    title: "🛒 Shopify Order Alert",
+    color: 0xff6b35, // Orange-red
+    timestamp: new Date().toISOString(),
+    description: `Unusual order activity detected on Gelball Store`,
+    fields: [
+      {
+        name: "📊 Current Metrics",
+        value: `**Orders (24h):** ${result.metrics.orders_24h}\n**Revenue (24h):** ${result.metrics.revenue_24h.toFixed(2)} MAD\n**Orders (1h):** ${result.metrics.orders_1h}\n**Avg Order Value:** ${result.metrics.avg_order_value_24h.toFixed(2)} MAD`,
+        inline: true
+      },
+      {
+        name: "🚨 Anomalies Detected",
+        value: highSeverityAnomalies.map(anomaly => `• ${anomaly.message}`).join('\n'),
+        inline: true
+      }
+    ],
+    footer: {
+      text: "SitePulse Shopify Monitor"
+    }
+  };
+
+  // Add top products if available
+  if (result.metrics.top_products && result.metrics.top_products.length > 0) {
+    embed.fields.push({
+      name: "🔥 Top Products",
+      value: result.metrics.top_products.slice(0, 3).map(p => `• ${p.product}: ${p.quantity} sold`).join('\n'),
+      inline: false
+    });
+  }
+
+  return {
+    embeds: [embed]
+  };
+}
+
+function createShopifyOrderUpdate(result) {
+  if (!result.success) return null;
+
+  const embed = {
+    title: "🛒 Shopify Sales Update",
+    color: 0x00d4aa, // Shopify green
+    timestamp: new Date().toISOString(),
+    description: `Daily sales report for Gelball Store`,
+    fields: [
+      {
+        name: "📈 24-Hour Summary",
+        value: `**Orders:** ${result.metrics.orders_24h}\n**Revenue:** ${result.metrics.revenue_24h.toFixed(2)} MAD\n**Avg Order Value:** ${result.metrics.avg_order_value_24h.toFixed(2)} MAD`,
+        inline: true
+      },
+      {
+        name: "⚡ Recent Activity",
+        value: `**Orders (1h):** ${result.metrics.orders_1h}\n**Revenue (1h):** ${result.metrics.revenue_1h.toFixed(2)} MAD`,
+        inline: true
+      }
+    ],
+    footer: {
+      text: "SitePulse Shopify Monitor • Next update in 6 hours"
+    }
+  };
+
+  // Add top products
+  if (result.metrics.top_products && result.metrics.top_products.length > 0) {
+    embed.fields.push({
+      name: "🏆 Best Sellers (24h)",
+      value: result.metrics.top_products.slice(0, 5).map(p => `• **${p.product}**: ${p.quantity} sold`).join('\n'),
+      inline: false
+    });
+  }
+
+  // Add order sources if available
+  if (result.metrics.order_sources && Object.keys(result.metrics.order_sources).length > 0) {
+    const sources = Object.entries(result.metrics.order_sources)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 3)
+      .map(([source, count]) => `• ${source}: ${count} orders`)
+      .join('\n');
+    
+    embed.fields.push({
+      name: "📍 Order Sources",
+      value: sources,
+      inline: true
+    });
+  }
+
+  return {
+    embeds: [embed]
+  };
+}
+
+// WordPress Security Alerts
+function createWordPressSecurityAlert(result) {
+  if (!result.success || result.issues.length === 0) return null;
+
+  const highIssues = result.issues.filter(i => i.severity === 'high');
+  const mediumIssues = result.issues.filter(i => i.severity === 'medium');
+
+  // Only alert on high or multiple medium issues
+  if (highIssues.length === 0 && mediumIssues.length < 3) return null;
+
+  const embed = {
+    title: "🔒 WordPress Security Alert",
+    color: result.security_score < 50 ? 0xff0000 : 0xffa500, // Red if very low score, orange otherwise
+    timestamp: new Date().toISOString(),
+    description: `Security issues detected on Golden Beach Villas`,
+    fields: [
+      {
+        name: "🛡️ Security Score",
+        value: `**${result.security_score}/100**`,
+        inline: true
+      },
+      {
+        name: "⚠️ Issues Found",
+        value: `**High:** ${highIssues.length}\n**Medium:** ${mediumIssues.length}\n**Low:** ${result.issues.filter(i => i.severity === 'low').length}`,
+        inline: true
+      }
+    ],
+    footer: {
+      text: "SitePulse WordPress Security"
+    }
+  };
+
+  // Add high priority issues
+  if (highIssues.length > 0) {
+    embed.fields.push({
+      name: "🚨 High Priority Issues",
+      value: highIssues.slice(0, 5).map(issue => `• ${issue.message}`).join('\n'),
+      inline: false
+    });
+  }
+
+  // Add medium priority issues if there are many
+  if (mediumIssues.length >= 3) {
+    embed.fields.push({
+      name: "⚠️ Medium Priority Issues",
+      value: mediumIssues.slice(0, 3).map(issue => `• ${issue.message}`).join('\n'),
+      inline: false
+    });
+  }
+
+  return {
+    embeds: [embed]
+  };
+}
+
+function createWordPressSecurityUpdate(result) {
+  if (!result.success) return null;
+
+  const embed = {
+    title: "🔒 WordPress Security Report",
+    color: result.security_score >= 80 ? 0x00ff00 : result.security_score >= 50 ? 0xffa500 : 0xff0000,
+    timestamp: new Date().toISOString(),
+    description: `Security scan completed for Golden Beach Villas`,
+    fields: [
+      {
+        name: "🛡️ Security Score",
+        value: `**${result.security_score}/100**`,
+        inline: true
+      },
+      {
+        name: "📊 Scan Results",
+        value: `**Issues Found:** ${result.issues.length}\n**High Priority:** ${result.issues.filter(i => i.severity === 'high').length}\n**Medium Priority:** ${result.issues.filter(i => i.severity === 'medium').length}`,
+        inline: true
+      }
+    ],
+    footer: {
+      text: "SitePulse WordPress Security • Next scan in 24 hours"
+    }
+  };
+
+  // Add security status indicators
+  const securityChecks = [];
+  if (result.checks.wp_api_accessible) securityChecks.push("✅ WordPress API accessible");
+  if (result.checks.sensitive_files_protected) securityChecks.push("✅ Sensitive files protected");
+  else securityChecks.push("❌ Sensitive files exposed");
+  if (result.checks.malware_scan_clean) securityChecks.push("✅ No malware detected");
+  else securityChecks.push("❌ Potential malware found");
+
+  if (securityChecks.length > 0) {
+    embed.fields.push({
+      name: "🔍 Security Checks",
+      value: securityChecks.slice(0, 6).join('\n'),
+      inline: false
+    });
+  }
+
+  // Add critical issues if any
+  const criticalIssues = result.issues.filter(i => i.severity === 'high');
+  if (criticalIssues.length > 0) {
+    embed.fields.push({
+      name: "🚨 Action Required",
+      value: criticalIssues.slice(0, 3).map(issue => `• ${issue.message}`).join('\n'),
+      inline: false
+    });
+  }
+
+  return {
+    embeds: [embed]
+  };
+}
+
+// Enhanced alert checking with new features
+async function checkAndSendAdvancedAlerts() {
+  console.log('🔔 Checking for advanced alerts...');
+
+  // Check Shopify order alerts
+  const shopifyLatestFile = path.join('data', 'shopify', 'shopify-orders-latest.json');
+  if (fs.existsSync(shopifyLatestFile)) {
+    const shopifyResult = JSON.parse(fs.readFileSync(shopifyLatestFile, 'utf8'));
+    const shopifyAlert = createShopifyOrderAlert(shopifyResult);
+
+    if (shopifyAlert) {
+      console.log('🛒 Sending Shopify order alert...');
+      await sendDiscordAlert(shopifyAlert);
+    }
+  }
+
+  // Check WordPress security alerts
+  const wpLatestFile = path.join('data', 'wordpress', 'wordpress-integrity-latest.json');
+  if (fs.existsSync(wpLatestFile)) {
+    const wpResult = JSON.parse(fs.readFileSync(wpLatestFile, 'utf8'));
+    const wpAlert = createWordPressSecurityAlert(wpResult);
+
+    if (wpAlert) {
+      console.log('🔒 Sending WordPress security alert...');
+      await sendDiscordAlert(wpAlert);
+    }
+  }
+
+  console.log('✅ Advanced alert check completed');
+}
+
+async function sendAdvancedStatusUpdates() {
+  console.log('📊 Sending advanced status updates...');
+
+  // Send Shopify update
+  const shopifyLatestFile = path.join('data', 'shopify', 'shopify-orders-latest.json');
+  if (fs.existsSync(shopifyLatestFile)) {
+    const shopifyResult = JSON.parse(fs.readFileSync(shopifyLatestFile, 'utf8'));
+    const shopifyUpdate = createShopifyOrderUpdate(shopifyResult);
+
+    if (shopifyUpdate) {
+      console.log('🛒 Sending Shopify sales update...');
+      await sendDiscordAlert(shopifyUpdate);
+    }
+  }
+
+  // Send WordPress security update
+  const wpLatestFile = path.join('data', 'wordpress', 'wordpress-integrity-latest.json');
+  if (fs.existsSync(wpLatestFile)) {
+    const wpResult = JSON.parse(fs.readFileSync(wpLatestFile, 'utf8'));
+    const wpUpdate = createWordPressSecurityUpdate(wpResult);
+
+    if (wpUpdate) {
+      console.log('🔒 Sending WordPress security update...');
+      await sendDiscordAlert(wpUpdate);
+    }
+  }
+
+  console.log('✅ Advanced status updates sent');
+}
+
 module.exports = {
   checkAndSendAlerts,
   sendStatusUpdates,
   sendMatomoUpdates,
+  checkAndSendAdvancedAlerts,
+  sendAdvancedStatusUpdates,
   createUptimeAlert,
   createPerformanceAlert,
   createUptimeUpdate,
   createPerformanceUpdate,
-  createMatomoUpdate
+  createMatomoUpdate,
+  createShopifyOrderAlert,
+  createShopifyOrderUpdate,
+  createWordPressSecurityAlert,
+  createWordPressSecurityUpdate
 };

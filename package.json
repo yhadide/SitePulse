@@ -7,8 +7,12 @@
     "uptime": "node scripts/uptime.js",
     "lighthouse": "node scripts/lighthouse.js",
     "matomo": "node scripts/matomo.js",
+    "shopify-orders": "node scripts/shopify-orders.js",
+    "wordpress-integrity": "node scripts/wordpress-integrity.js",
     "alerts": "node scripts/alerts.js",
     "status": "node scripts/alerts.js --status-only",
+    "advanced-alerts": "node -e \"const { checkAndSendAdvancedAlerts } = require('./scripts/alerts.js'); checkAndSendAdvancedAlerts();\"",
+    "advanced-status": "node -e \"const { sendAdvancedStatusUpdates } = require('./scripts/alerts.js'); sendAdvancedStatusUpdates();\"",
     "test-matomo": "node scripts/matomo.js",
     "deploy-check": "echo 'SitePulse monitoring stack ready for Railway deployment'"
   },

@@ -1,0 +1,28 @@
+[
+  {
+    "timestamp": "2025-07-30T16:02:26.305Z",
+    "success": true,
+    "metrics": {
+      "timestamp": "2025-07-30T16:02:26.305Z",
+      "orders_24h": 4,
+      "orders_1h": 0,
+      "revenue_24h": 1400,
+      "revenue_1h": 0,
+      "avg_order_value_24h": 350,
+      "top_products": [
+        {
+          "product": "GelBall X5 Blaster",
+          "quantity": 4
+        }
+      ],
+      "order_sources": {
+        "web": 4
+      },
+      "payment_methods": {
+        "Cash on Delivery (COD)": 4
+      }
+    },
+    "anomalies": [],
+    "alerts": false
+  }
+]

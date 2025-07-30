@@ -2,10 +2,8 @@ name: Site Monitoring
 
 on:
   schedule:
-    # Uptime checks every 30 minutes (2 sites = ~1 min per run)
-    - cron: '*/30 * * * *'
-    # Performance checks every 6 hours (2 sites = ~4 min per run)
-    - cron: '0 */6 * * *'
+    # Daily monitoring at 8 AM UTC (comprehensive check)
+    - cron: '0 8 * * *'
   workflow_dispatch: # Allow manual runs
     inputs:
       check_type:
@@ -40,54 +38,38 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run uptime checks
-      id: uptime
-      if: github.event.schedule == '*/30 * * * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.check_type == 'uptime' || github.event.inputs.check_type == 'both')
+    - name: Run comprehensive monitoring
+      id: monitoring
       run: |
+        echo "Running daily comprehensive monitoring..."
         npm run uptime
-        echo "uptime_success=true" >> $GITHUB_OUTPUT
-      continue-on-error: true
-
-    - name: Run Lighthouse audits
-      id: lighthouse
-      if: github.event.schedule == '0 */6 * * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.check_type == 'lighthouse' || github.event.inputs.check_type == 'both')
-      run: |
-        npm run lighthouse
-        echo "lighthouse_success=true" >> $GITHUB_OUTPUT
-      continue-on-error: true
-
-    - name: Collect Matomo analytics
-      id: matomo
-      if: github.event.schedule == '0 */6 * * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.check_type == 'lighthouse' || github.event.inputs.check_type == 'both')
-      run: |
+        npm run lighthouse  
         npm run matomo
-        echo "matomo_success=true" >> $GITHUB_OUTPUT
+        npm run shopify-orders
+        npm run wordpress-integrity
+        echo "monitoring_success=true" >> $GITHUB_OUTPUT
       continue-on-error: true
       env:
         MATOMO_TOKEN: ${{ secrets.MATOMO_TOKEN }}
+        SHOPIFY_STORE_URL: ${{ secrets.SHOPIFY_STORE_URL }}
+        SHOPIFY_ACCESS_TOKEN: ${{ secrets.SHOPIFY_ACCESS_TOKEN }}
+        WP_SITE_URL: ${{ secrets.WP_SITE_URL }}
+        WP_USERNAME: ${{ secrets.WP_USERNAME }}
+        WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
 
-    - name: Send alerts if checks failed
-      if: steps.uptime.outcome == 'failure' || steps.lighthouse.outcome == 'failure'
-      run: npm run alerts
-      env:
-        DISCORD_WEBHOOK_URL: ${{ secrets.DS_WEBHOOK_URL }}
-
-    - name: Debug step outcomes
+    - name: Send alerts if critical issues detected
+      if: steps.monitoring.outcome == 'failure'
       run: |
-        echo "Uptime outcome: ${{ steps.uptime.outcome }}"
-        echo "Lighthouse outcome: ${{ steps.lighthouse.outcome }}"
-        echo "Uptime conclusion: ${{ steps.uptime.conclusion }}"
-        echo "Lighthouse conclusion: ${{ steps.lighthouse.conclusion }}"
-
-    - name: Send status updates for successful checks
-      if: steps.uptime.outcome == 'success' || steps.lighthouse.outcome == 'success' || steps.matomo.outcome == 'success'
-      run: npm run status
+        npm run alerts
+        npm run advanced-alerts
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DS_WEBHOOK_URL }}
 
-    - name: Send Matomo analytics updates
-      if: steps.matomo.outcome == 'success'
-      run: node -e "const { sendMatomoUpdates } = require('./scripts/alerts.js'); sendMatomoUpdates();"
+    - name: Send daily status report
+      if: steps.monitoring.outcome == 'success'
+      run: |
+        npm run status
+        npm run advanced-status
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DS_WEBHOOK_URL }}
 
@@ -97,15 +79,7 @@ jobs:
         git config --local user.name "GitHub Action"
         git add data/
         if ! git diff --staged --quiet; then
-          if [[ "${{ steps.uptime.outcome }}" == "success" && "${{ steps.lighthouse.outcome }}" == "success" ]]; then
-            git commit -m "📊 Monitoring results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          elif [[ "${{ steps.uptime.outcome }}" == "success" ]]; then
-            git commit -m "📊 Uptime check results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          elif [[ "${{ steps.lighthouse.outcome }}" == "success" ]]; then
-            git commit -m "🚀 Lighthouse audit results - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          else
-            git commit -m "📊 Monitoring data update - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-          fi
+          git commit -m "📊 Daily monitoring report - $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
           git push
         else
           echo "No changes to commit"

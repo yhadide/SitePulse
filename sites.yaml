@@ -28,5 +28,4 @@ alerts:
 
 # Monitoring frequency (GitHub Actions cron)
 schedule:
-  uptime_cron: "*/30 * * * *"    # Every 30 minutes
-  lighthouse_cron: "0 */6 * * *" # Every 6 hours
+  daily_monitoring: "0 8 * * *"  # Daily at 8 AM UTC
