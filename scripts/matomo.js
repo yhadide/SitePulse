@@ -53,8 +53,8 @@ async function collectMatomoMetrics() {
 
   // Site ID mapping - your actual Matomo site IDs
   const siteMapping = {
-    'golden-beach-villas': 1,  // GlodenBeachVillas site ID
-    'gelball-store': 2         // Gelball store site ID
+    'example-wordpress-site': 1,  // WordPress site ID
+    'example-shopify-store': 2    // Shopify store site ID
   };
 
   for (const site of config.sites) {

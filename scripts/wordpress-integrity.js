@@ -8,7 +8,7 @@ const yaml = require('yaml');
 const config = yaml.parse(fs.readFileSync('sites.yaml', 'utf8'));
 
 // WordPress configuration
-const WP_SITE_URL = process.env.WP_SITE_URL || 'https://goldenbeachvillas.com';
+const WP_SITE_URL = process.env.WP_SITE_URL || 'https://example-wordpress.com';
 const WP_USERNAME = process.env.WP_USERNAME; // Your WordPress admin username
 const WP_APP_PASSWORD = process.env.WP_APP_PASSWORD; // Application password from WordPress
 

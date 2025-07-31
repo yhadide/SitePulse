@@ -1,23 +1,36 @@
-# Railway Matomo Setup - COMPLETED ✅
+# Railway Environment Variables Template
 
-## Your Railway Matomo Configuration
+## Required Environment Variables for Matomo Service
 
-### 🚀 **Deployed Services**
-- **Matomo**: https://matomo-production-08cf.up.railway.app
-- **MariaDB**: mariadb-production-264b.up.railway.app
-- **Status**: ✅ Fully operational with real visitor tracking
+Copy these to your Railway Matomo service Variables tab:
 
-### 📊 **Websites Configured**
-- **Golden Beach Villas** (Site ID 1): https://goldenbeachvillas.com
-- **Gelball Store** (Site ID 2): https://gelball.ma
+### Database Configuration
+```
+MATOMO_DATABASE_HOST=${{MySQL.MYSQL_PRIVATE_URL}}
+MATOMO_DATABASE_ADAPTER=mysql
+MATOMO_DATABASE_TABLES_PREFIX=matomo_
+MATOMO_DATABASE_USERNAME=${{MySQL.MYSQL_USER}}
+MATOMO_DATABASE_PASSWORD=${{MySQL.MYSQL_PASSWORD}}
+MATOMO_DATABASE_DBNAME=${{MySQL.MYSQL_DATABASE}}
+```
 
-### 🔑 **GitHub Secrets Required**
+### Security Configuration
+```
+MATOMO_SALT=your-random-32-character-salt-here
+```
 
-Add these to your GitHub repository secrets for automated monitoring:
+### Optional: Custom Domain
+```
+MATOMO_TRUSTED_HOSTS=your-custom-domain.com,your-railway-url.up.railway.app
+```
+
+## Required GitHub Secrets
+
+Add these to your GitHub repository secrets:
 
 ```
-MATOMO_URL=https://matomo-production-08cf.up.railway.app
-MATOMO_TOKEN=604d3aab0d5df07a042782b791a8f634
+MATOMO_URL=https://your-railway-url.up.railway.app
+MATOMO_TOKEN=your-matomo-api-token
 DS_WEBHOOK_URL=your-discord-webhook-url
 ```
 

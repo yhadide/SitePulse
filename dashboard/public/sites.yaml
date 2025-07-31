@@ -1,7 +1,7 @@
 sites:
-  - name: golden-beach-villas
+  - name: example-wordpress-site
     type: wordpress
-    url: https://goldenbeachvillas.com/
+    url: https://example-wordpress.com/
     perf_budget:
       lcp_ms: 2500
       tbt_ms: 300
@@ -9,9 +9,9 @@ sites:
       uptime_threshold: 5000
     tags: ["production", "wordpress"]
     
-  - name: gelball-store
+  - name: example-shopify-store
     type: shopify
-    url: https://gelball.ma/
+    url: https://example-store.com/
     perf_budget:
       lcp_ms: 2500
       tbt_ms: 300

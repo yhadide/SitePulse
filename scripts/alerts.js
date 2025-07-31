@@ -276,7 +276,7 @@ function createShopifyOrderAlert(result) {
     title: "🛒 Shopify Order Alert",
     color: 0xff6b35, // Orange-red
     timestamp: new Date().toISOString(),
-    description: `Unusual order activity detected on Gelball Store`,
+    description: `Unusual order activity detected on Shopify Store`,
     fields: [
       {
         name: "📊 Current Metrics",
@@ -315,7 +315,7 @@ function createShopifyOrderUpdate(result) {
     title: "🛒 Shopify Sales Update",
     color: 0x00d4aa, // Shopify green
     timestamp: new Date().toISOString(),
-    description: `Daily sales report for Gelball Store`,
+    description: `Daily sales report for Shopify Store`,
     fields: [
       {
         name: "📈 24-Hour Summary",
@@ -376,7 +376,7 @@ function createWordPressSecurityAlert(result) {
     title: "🔒 WordPress Security Alert",
     color: result.security_score < 50 ? 0xff0000 : 0xffa500, // Red if very low score, orange otherwise
     timestamp: new Date().toISOString(),
-    description: `Security issues detected on Golden Beach Villas`,
+    description: `Security issues detected on WordPress Site`,
     fields: [
       {
         name: "🛡️ Security Score",
@@ -424,7 +424,7 @@ function createWordPressSecurityUpdate(result) {
     title: "🔒 WordPress Security Report",
     color: result.security_score >= 80 ? 0x00ff00 : result.security_score >= 50 ? 0xffa500 : 0xff0000,
     timestamp: new Date().toISOString(),
-    description: `Security scan completed for Golden Beach Villas`,
+    description: `Security scan completed for WordPress Site`,
     fields: [
       {
         name: "🛡️ Security Score",

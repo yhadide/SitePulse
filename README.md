@@ -1,215 +1,198 @@
-# SitePulse 🚀
+# SitePulse
 
-**Free, open-source monitoring stack for WordPress & Shopify sites**
+**Comprehensive website monitoring with analytics, security scanning, and intelligent alerts**
 
-Monitor uptime, performance, and get alerts - all running on GitHub's free tier with zero paid services.
+A monitoring stack built for WordPress & Shopify sites that combines uptime tracking, performance analysis, visitor analytics, sales monitoring, and security scanning into automated daily reports.
 
-## 🎯 Features
+## What This Does
 
-- **Comprehensive Monitoring**: Daily checks including uptime, performance, analytics, sales, and security
-- **Real-time Dashboard**: React dashboard hosted on GitHub Pages
-- **Smart Alerts**: Discord webhooks when thresholds are violated
-- **Zero Cost**: Runs entirely on GitHub Actions + GitHub Pages free tiers
-- **Version Controlled**: All metrics stored as JSON in your repo
+A complete monitoring solution that tracks multiple aspects of website health and business performance, providing actionable insights through automated analysis and smart notifications.
 
-## 🏗️ Architecture
+### Business Intelligence
+- Real-time sales tracking with Shopify Admin API integration
+- Visitor analytics via self-hosted Matomo on Railway
+- Revenue spike detection with intelligent anomaly alerts
+- Product performance insights and order source analysis
+
+### Security Monitoring
+- WordPress integrity checks with authenticated API access
+- Vulnerability scanning for exposed files and weak configurations
+- Plugin update monitoring and security score tracking
+- User permission auditing and malware detection
+
+### Performance & Uptime
+- Lighthouse CI integration with Core Web Vitals tracking
+- Global uptime monitoring with response time analysis
+- Performance budget enforcement with custom thresholds
+- Historical trend analysis and performance degradation alerts
+
+### Intelligent Automation
+- Smart Discord notifications with context-aware alerts
+- Automated daily reports combining all monitoring data
+- GitHub Actions CI/CD for zero-maintenance operation
+- Version-controlled monitoring data with full audit trail
+
+## Architecture Overview
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   GitHub Actions│    │   Data Storage   │    │  React Dashboard│
+│   GitHub Actions│    │   Railway Cloud  │    │   Discord       │
+│   Daily Monitoring   │   Matomo Analytics    │   Smart Alerts   │
 │                 │    │                  │    │                 │
-│ ┌─────────────┐ │    │ /data/uptime/    │    │ Chart.js graphs │
-│ │Uptime Check │ ├────┤ /data/perf/      ├────┤ Site status     │
-│ │Every 30min  │ │    │ JSON files       │    │ Performance     │
-│ └─────────────┘ │    │                  │    │ trends          │
+│ • Uptime Checks │    │ • Visitor Data   │    │ • Sales Spikes  │
+│ • Lighthouse CI │───▶│ • Performance    │───▶│ • Security Issues│
+│ • Shopify API   │    │ • Security Scans │    │ • Performance   │
+│ • WordPress API │    │ • Historical Data│    │ • Downtime      │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                       │                       │
+         ▼                       ▼                       ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Data Storage  │    │   React Dashboard│    │   CLI Management│
+│   Version Control    │   Vercel Hosting │    │   Site Management│
 │                 │    │                  │    │                 │
-│ ┌─────────────┐ │    │                  │    │ GitHub Pages    │
-│ │Lighthouse   │ │    │                  │    │ Static hosting  │
-│ │Every 6hrs   │ │    │                  │    │                 │
-│ └─────────────┘ │    │                  │    │                 │
-│                 │    │                  │    │                 │
-│ ┌─────────────┐ │    │                  │    │                 │
-│ │Discord      │ │    │                  │    │                 │
-│ │Alerts       │ │    │                  │    │                 │
-│ └─────────────┘ │    │                  │    │                 │
+│ • JSON Metrics  │    │ • Real-time Charts│   │ • Add/Remove Sites│
+│ • Git History   │    │ • Trend Analysis │    │ • Interactive Setup│
+│ • Audit Trail   │    │ • Status Overview│    │ • Help System   │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
-## 🚀 Quick Start
+## Technical Implementation
 
-### 1. Fork & Clone
+### Technology Stack
+- **Frontend**: React + Chart.js dashboard on Vercel
+- **Backend**: Node.js monitoring scripts on GitHub Actions
+- **Analytics**: Self-hosted Matomo on Railway
+- **Database**: MariaDB for analytics + JSON for metrics
+- **Notifications**: Discord webhooks with smart filtering
+- **CLI**: Interactive site management tools
+
+### Active Monitoring
+Currently monitoring production websites with real data:
+- **WordPress site**: Security monitoring with vulnerability detection
+- **Shopify store**: Sales tracking and order analysis
+- **Automated reporting**: Daily comprehensive status updates
+
+## CLI Tools & Management
+
+Built-in command-line tools make scaling effortless:
+
 ```bash
-git clone https://github.com/yourusername/sitePulse.git
-cd sitePulse
+# Site Management
+npm run add-site      # Interactive site addition wizard
+npm run remove-site   # Safe site removal with confirmation  
+npm run list-sites    # Overview of all monitored sites
+
+# Monitoring Commands  
+npm run uptime        # Check website availability
+npm run lighthouse    # Performance audits with Core Web Vitals
+npm run matomo        # Collect visitor analytics
+npm run shopify-orders      # Sales and revenue analysis
+npm run wordpress-integrity # Security and health checks
+
+# Alerts & Reports
+npm run advanced-status     # Comprehensive Discord reports
+npm run advanced-alerts     # Intelligent issue notifications
+
+# Help & Documentation
+npm run help          # Complete CLI reference
 ```
 
-### 2. Deploy Matomo to Railway
-1. **Sign up**: https://railway.app with GitHub
-2. **Create project** from your sitePulse repository
-3. **Add MySQL database** service
-4. **Configure environment variables** (see `railway-env-template.md`)
-5. **Complete Matomo setup** at your Railway URL
+## Live Monitoring Examples
 
-### 3. Configure Your Sites
-Edit `sites.yaml`:
-```yaml
-sites:
-  - name: my-wordpress-site
-    type: wordpress
-    url: https://yoursite.com
-    perf_budget:
-      lcp_ms: 2500
-      tbt_ms: 300
-      perf_score: 80
-      uptime_threshold: 5000
+### Shopify Sales Intelligence
+```
+Shopify Sales Update - Example Store
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+24-Hour Summary
+   Orders: 4
+   Revenue: 1,400 MAD  
+   Avg Order Value: 350 MAD
+
+Recent Activity
+   Orders (1h): 0
+   Revenue (1h): 0 MAD
+
+Best Sellers (24h)
+   • Product A: 2 sold
+   • Product B: 1 sold
+   • Product C: 3 sold
 ```
 
-### 4. Set Up Integrations
-1. **Discord**: Create webhook, add to GitHub secrets as `DS_WEBHOOK_URL`
-2. **GitHub Secrets**: Add `MATOMO_URL` and `MATOMO_TOKEN`
-3. **Website Tracking**: Add Matomo tracking codes to your sites
-
-### 5. Enable Monitoring
-1. **Uncomment** schedule in `.github/workflows/monitor.yml`
-2. **Enable GitHub Actions** in repository settings
-3. **View dashboard** at your Vercel URL
-
-📖 **Detailed guide**: See `DEPLOYMENT.md`
-
-## 📊 Data Storage
-
-All monitoring data is stored as JSON files in `/data/`:
-
+### WordPress Security Report
 ```
-/data/
-├── uptime/
-│   ├── uptime-latest.json      # Latest check results
-│   └── uptime-2025-01-27.json  # Daily historical data
-└── perf/
-    ├── perf-latest.json        # Latest Lighthouse results
-    ├── perf-summary-site1.json # Site performance history
-    └── perf-site1-timestamp.json # Full Lighthouse reports
+WordPress Security Report - Example WordPress Site
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Security Score: 75/100
+
+Scan Results
+   Issues Found: 3
+   High Priority: 0
+   Medium Priority: 2
+
+Security Checks
+   ✅ WordPress API accessible
+   ✅ Sensitive files protected  
+   ✅ No malware detected
+   ✅ 12 plugins, all updated
+
+Action Required
+   • Missing security headers
+   • Consider enabling 2FA
 ```
 
-## ⚙️ Configuration
+## Key Capabilities
 
-### Adding a New Site
-1. Edit `sites.yaml`
-2. Add your site configuration
-3. Commit and push - monitoring starts automatically
+### Smart Alerting
+- Context-aware notifications that filter out noise
+- Business logic integration for meaningful alerts
+- Trend analysis for performance degradation detection
+- Configurable alert suppression and escalation
 
-### Adjusting Check Frequency
-Edit `.github/workflows/monitor.yml`:
-```yaml
-schedule:
-  - cron: '0 8 * * *'  # Daily at 8 AM UTC (comprehensive monitoring)
-```
+### Multi-Platform Support
+- **WordPress**: Security scanning, plugin monitoring, user auditing
+- **Shopify**: Sales analytics, order tracking, revenue monitoring
+- **Static Sites**: Uptime and performance analysis
+- **Extensible**: Easy to add support for other platforms
 
-### Performance Budgets
-```yaml
-perf_budget:
-  lcp_ms: 2500        # Largest Contentful Paint
-  tbt_ms: 300         # Total Blocking Time  
-  perf_score: 80      # Overall Lighthouse score
-  uptime_threshold: 5000  # Response time threshold
-```
+### Automated Reporting
+- Daily comprehensive reports combining all monitoring data
+- Structured Discord notifications with actionable insights
+- Historical trend analysis with performance baselines
+- Custom performance budgets and threshold management
 
-## 🔧 Local Development
+### Management Tools
+- Interactive CLI for site management and configuration
+- Version-controlled monitoring configuration
+- Comprehensive help system and documentation
+- Modular architecture for easy customization
 
-### Run Monitoring Scripts Locally
-```bash
-npm install
-npm run uptime      # Test uptime checks
-npm run lighthouse  # Test performance audits
-npm run alerts      # Test Discord alerts
-```
+## What's Next
 
-### Run Dashboard Locally
-```bash
-cd dashboard
-npm install
-npm run dev
-```
+This monitoring stack is actively being enhanced with:
 
-### Deploy Dashboard
-```bash
-cd dashboard
-npm run build
-npm run deploy
-```
+- Advanced alerting rules engine with custom business logic
+- Cache optimization analysis for performance improvements  
+- Multi-region monitoring for global performance insights
+- Professional Grafana dashboards for enterprise visualization
 
-## 📈 Understanding the Data
+## Documentation
 
-### Uptime Metrics
-- **Status Code**: HTTP response (200 = good)
-- **Response Time**: How fast your site responds
-- **Success**: Green if status=200 AND response < threshold
+**Setup guide coming soon!** This README showcases what's possible - a complete setup tutorial will be available to help you build your own monitoring stack.
 
-### Performance Metrics
-- **Performance Score**: 0-100 (90+ is excellent)
-- **LCP**: Largest Contentful Paint (<2.5s is good)
-- **TBT**: Total Blocking Time (<300ms is good)
-- **CLS**: Cumulative Layout Shift (<0.1 is good)
+For now, explore the codebase to see how comprehensive monitoring can be built entirely on free infrastructure.
 
-### Alert Triggers
-- Site returns non-200 status code
-- Response time exceeds threshold
-- Performance score drops below budget
-- LCP/TBT exceeds budget limits
+## Built With
 
-## 🔍 Troubleshooting
-
-### GitHub Actions Not Running
-1. Check Actions tab for error messages
-2. Ensure workflows are enabled in repo settings
-3. Verify secrets are set correctly
-
-### Dashboard Not Loading Data
-1. Check if data files exist in `/data/` folders
-2. Verify GitHub Pages is enabled and deployed
-3. Check browser console for CORS errors
-
-### No Discord Alerts
-1. Verify `DISCORD_WEBHOOK_URL` secret is set
-2. Test webhook URL manually with curl
-3. Check Actions logs for alert script errors
-
-## 📋 Roadmap
-
-### Phase 2 Features
-- [ ] Matomo integration for user behavior analytics
-- [ ] Shopify order spike detection via Admin API
-- [ ] WordPress integrity checks (wp core verify-checksums)
-- [ ] SMTP email alerts as Discord fallback
-- [ ] Telegram alerts support
-- [ ] CLI tool for adding sites
-
-### Phase 3 Features  
-- [ ] Prometheus + Grafana local Docker stack
-- [ ] Cache headers validation
-- [ ] CDN performance checks
-- [ ] Multi-region monitoring
-- [ ] Custom alert rules engine
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test locally
-5. Submit a pull request
-
-## 📄 License
-
-MIT License - feel free to use this for your own monitoring needs!
-
-## 🆘 Support
-
-- Create an issue for bugs or feature requests
-- Check existing issues for common problems
-- Join discussions for questions and tips
+- **GitHub Actions** - Automated monitoring workflows
+- **Railway** - Matomo analytics hosting  
+- **Vercel** - React dashboard deployment
+- **Discord** - Smart notification system
+- **Node.js** - Monitoring scripts and CLI tools
+- **MariaDB** - Analytics data storage
+- **React + Chart.js** - Beautiful data visualization
 
 ---
 
-**Built with ❤️ for the WordPress & Shopify community**
+**Built to demonstrate comprehensive monitoring capabilities using modern web technologies and free infrastructure**
 
+*A practical implementation of automated website monitoring, analytics, and alerting*
